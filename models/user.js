@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
+const Bcrypt = require('../helpers/bcrypt');
 
 const UserSchema = new Schema({
     email: {
@@ -39,7 +40,7 @@ const UserSchema = new Schema({
 })
 
 UserSchema.pre('save', function (next) {
-    this.password = hash(this.password)
+    this.password = Bcrypt.hash(this.password)
     if(!this.profile) this.profile = `https://api.adorable.io/avatars/285/${this.email}.png`
     next()
 })
