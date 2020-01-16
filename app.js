@@ -3,7 +3,6 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
-
 require('./helpers/mongoose')
 
 const cors = require('cors')
@@ -26,6 +25,6 @@ app.use((req, res, next) => {
     next(err)
 })
 
-app.use(errorHandler)
+app.use(errorHandler.errorHandler)
 
 app.listen(port, () => console.log('app running on port ' + port));
