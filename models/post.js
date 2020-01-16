@@ -6,6 +6,9 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
+    title:{
+        type: String
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User'
