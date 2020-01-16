@@ -38,6 +38,10 @@ module.exports = {
                     }
                 }
                 break;
+            case 'NotFoud':
+                statusCode = 404;
+                messageError = 'User tidak ditekmukan'
+                break;
             default:
                 statusCode = error.status || 500;
                 messageError = error.msg || "Internal Server Error";
