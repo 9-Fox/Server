@@ -11,7 +11,8 @@ const PostSchema = new Schema({
     },
     owner: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     likes: [{type: Schema.Types.ObjectId, ref: 'User'}],
     dislikes: [{type: Schema.Types.ObjectId, ref: 'User'}]
