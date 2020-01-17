@@ -5,7 +5,9 @@ const Comment = require('../models/comment')
 
 function authentication(req, res, next) {
     try {
-        if (!req.headers.token) throw ({ statusCode: 403, message: 'Access denied, token required' })
+        // if (!req.headers.token) throw ({ statusCode: 403, message: 'Access denied, token required' })
+        // console.log(req.headers.token);
+        
         req.decoded = verifyToken(req.headers.token)
 
         User.findById(req.decoded.id)
@@ -13,9 +15,12 @@ function authentication(req, res, next) {
                 if (!user) throw ({ statusCode: 403, msg: "Token Rejected" })
                 next()
             })
+            .catch(err =>{
+                next (err)
+            })
 
-    } catch (error) {
-        next({ statusCode: 403, message: 'Access denied, invalid token' })
+    } catch (error) {    
+      next({ statusCode: 403, message: 'Access denied, invalid token' })
     }
 }
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 let mongoURI;
 
-if(process.env.NODE_ENV === 'develpoment') mongoURI = process.env.MONGO_URI_DEV
+if(process.env.NODE_ENV === 'development') mongoURI = process.env.MONGO_URI_DEV
 else mongoURI = process.env.MONGO_URI
 
 mongoose.connect(mongoURI, {
