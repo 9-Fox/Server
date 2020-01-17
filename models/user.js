@@ -12,6 +12,7 @@ const UserSchema = new Schema({
                     .then((user) => {
                         return user ? false : true
                     })
+                    .catch(err => console.log(err))
             }
         },
         unique: true,
@@ -25,6 +26,7 @@ const UserSchema = new Schema({
                     .then((user) => {
                         return user ? false : true
                     })
+                    .catch(err => console.log(err))
             }
         },
         required: true,

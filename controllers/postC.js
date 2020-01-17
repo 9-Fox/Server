@@ -35,7 +35,7 @@ class Controller {
 
     static async deletePost(req, res, next){
         try {
-            let post = Post.findByIdAndDelete(req.params.id)
+            let post = await Post.findByIdAndDelete(req.params.id)
             res.status(200).json(post)
         } catch (error) {
             next(error)

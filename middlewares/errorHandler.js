@@ -43,6 +43,7 @@ module.exports = {
                 messageError = 'User tidak ditekmukan'
                 break;
             default:
+                console.log('err', error.name)
                 statusCode = error.status || 500;
                 messageError = error.msg || "Internal Server Error";
                 break;

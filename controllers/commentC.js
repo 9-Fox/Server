@@ -25,6 +25,8 @@ class Controller {
     }
 
     static async getPostComment(req,res,next){
+        console.log(req.body);
+        
         try {
             let comments = await Comment.find({post: req.params.postId})
             res.status(200).json(comments)
