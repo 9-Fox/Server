@@ -5,9 +5,8 @@ const Comment = require('../models/comment')
 
 function authentication(req, res, next) {
     try {
+
         if (!req.headers.token) throw ({ statusCode: 403, message: 'Access denied, token required' })
-        // console.log(req.headers.token);
-        
         req.decoded = verifyToken(req.headers.token)
 
         User.findById(req.decoded.id)
@@ -19,7 +18,7 @@ function authentication(req, res, next) {
                 next (err)
             })
 
-    } catch (error) {    
+    } catch (error) {
       next()
     }
 }

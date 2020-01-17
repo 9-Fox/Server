@@ -4,7 +4,7 @@ class Controller {
 
     static async getAllPost(req, res, next) {
         try {
-            let posts = await Post.find()
+            let posts = await Post.find().populate('user', '-password')
             res.status(200).json(posts)
         } catch (error) {
             next(error)
@@ -13,7 +13,7 @@ class Controller {
 
     static async getOnePost(req, res, next) {
         try {
-            let post = await Post.findById(req.params.id)
+            let post = await Post.findById(req.params.id).populate('user', '-password')
             res.status(200).json(post)
         } catch (error) {
             next(error)
@@ -46,8 +46,9 @@ class Controller {
         try {
             let post = await Post.findByIdAndUpdate(req.params.id, {
                 $addToSet: { likes: req.decoded.id },
-                $pull: { dislikes: req.decoded.id }
-            }, { new: true })
+                $pull: {dislikes: req.decoded.id}
+            }, { new: true }).populate('user', '-password')
+
             res.status(200).json(post)
         } catch (error) {
             next(error)
@@ -58,8 +59,9 @@ class Controller {
         try {
             let post = await Post.findByIdAndUpdate(req.params.id, {
                 $addToSet: { dislikes: req.decoded.id },
-                $pull: { likes: req.decoded.id }
-            }, { new: true })
+                $pull: {likes: req.decoded.id}
+            }, { new: true }).populate('user', '-password')
+
             res.status(200).json(post)
         } catch (error) {
             next(error)
