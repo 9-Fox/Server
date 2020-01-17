@@ -17,7 +17,7 @@ class Controller {
 
     static async getAllComment(req,res,next){
         try {
-            let comments = await Comment.find()
+            let comments = await Comment.find().populate('user', '-password')
             res.status(200).json(comments)
         } catch (error) {
             next(error)
@@ -28,7 +28,7 @@ class Controller {
         console.log(req.body);
         
         try {
-            let comments = await Comment.find({post: req.params.postId})
+            let comments = await Comment.find({post: req.params.postId}).populate('user', '-password')
             res.status(200).json(comments)
         } catch (error) {
             next(error)
