@@ -13,41 +13,45 @@ class Controller {
 
         }
         User.create(newUser)
-        .then(user => {
-            res.status(201).json({
-                Message: "New user has been created",
-                data: user
+            .then(user => {
+                let data = {
+                    email: user.email,
+                    name: user.name
+                }
+                res.status(201).json({
+                    Message: "New user has been created",
+                    data
+                })
             })
-        })
-        .catch(error => {
-            next(error);
-        })
+            .catch(error => {
+                next(error);
+            })
     }
 
     static login(req, res, next) {
-        User.findOne({email: req.body.email})
-        .then(user => {
-            if(!user) {
-                throw {
-                    name: 'NotFound'
-                }
-            } else {
-                const validationPassword = Bcrypt.dehash(req.body.password, user.password);
-                if(!validationPassword) {
+        User.findOne({ email: req.body.email })
+            .then(user => {
+                if (!user) {
                     throw {
-                        name: "ValidationError"
+                        name: 'NotFound'
                     }
                 } else {
-                    const userToken = Jwt.genToken({id: user._id});
-                    console.log(userToken);
-                    
-                    res.status(200).json(userToken)
+                    const validationPassword = Bcrypt.dehash(req.body.password, user.password);
+                    if (!validationPassword) {
+                        throw {
+                            name: "ValidationError"
+                        }
+                    } else {
+                        const userToken = Jwt.genToken({ id: user._id });
+                        // console.log(userToken);
+
+                        res.status(200).json(userToken)
+                    }
                 }
-            }
-        })
-        .catch(error => {
-            next(error);
-        })
+            })
+            .catch(error => {
+                next(error);
+            })
     }
 }
 

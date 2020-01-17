@@ -33,7 +33,7 @@ class Controller {
         }
     }
 
-    static async deletePost(req, res, next){
+    static async deletePost(req, res, next) {
         try {
             let post = await Post.findByIdAndDelete(req.params.id)
             res.status(200).json(post)
@@ -48,6 +48,7 @@ class Controller {
                 $addToSet: { likes: req.decoded.id },
                 $pull: {dislikes: req.decoded.id}
             }, { new: true }).populate('user', '-password')
+
             res.status(200).json(post)
         } catch (error) {
             next(error)
@@ -60,6 +61,7 @@ class Controller {
                 $addToSet: { dislikes: req.decoded.id },
                 $pull: {likes: req.decoded.id}
             }, { new: true }).populate('user', '-password')
+
             res.status(200).json(post)
         } catch (error) {
             next(error)
