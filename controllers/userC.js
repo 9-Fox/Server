@@ -38,11 +38,10 @@ class Controller {
                         name: "ValidationError"
                     }
                 } else {
-                    const userToken = Jwt.genToken(user._id);
-                    res.status(200).json({
-                        Message: 'OK',
-                        data: userToken
-                    })
+                    const userToken = Jwt.genToken({id: user._id});
+                    console.log(userToken);
+                    
+                    res.status(200).json(userToken)
                 }
             }
         })
